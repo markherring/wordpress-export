@@ -68,8 +68,10 @@ function collectPosts(data, postTypes, config) {
 				frontmatter: {
 					title: getPostTitle(post),
 					date: getPostDate(post),
+					slug: getPostSlug(post),
 					categories: getCategories(post),
-					tags: getTags(post)
+					tags: getTags(post),
+					description: getPostLead(post)
 				},
 				content: translator.getPostContent(post, turndownService, config)
 			}));
@@ -104,6 +106,18 @@ function getPostCoverImageId(post) {
 	const id = postmeta ? postmeta.meta_value[0] : undefined;
 	return id;
 }
+
+function getPostLead(post) {
+	if (post.postmeta === undefined) {
+		return undefined;
+	}
+
+	const postmeta = post.postmeta.find(postmeta => postmeta.meta_key[0] === 'post_lead');
+	const id = postmeta ? postmeta.meta_value[0] : undefined;
+	return id;
+
+}
+
 
 function getPostTitle(post) {
 	return post.title[0];
@@ -192,7 +206,7 @@ function mergeImagesIntoPosts(images, posts) {
 			// this image was set as the featured image for this post
 			if (image.id === post.meta.coverImageId) {
 				shouldAttach = true;
-				post.frontmatter.coverImage = shared.getFilenameFromUrl(image.url);
+				post.frontmatter.featured_image = shared.getFilenameFromUrl(image.url);
 			}
 
 			if (shouldAttach && !post.meta.imageUrls.includes(image.url)) {

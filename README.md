@@ -1,4 +1,14 @@
 # wordpress-export-to-markdown
+This is a fork of [wordpress-export-to-markdown](https://github.com/lonekorean/wordpress-export-to-markdown) My work in the branch. To use this
+- Get export XML from wordpress need to add the 
+- run this command
+  ``` console
+  node index.js --output ~/Downloads/wp --year-folders true --prefix-date true --save-attached-images true --save-scraped-images true --wizard false --include-other-types true --input my_export/export-feb.xml
+  ```
+  The main changes I made was to get the intro blurb (which is called decription)
+  
+
+
 
 A script that converts a WordPress export XML file into Markdown files suitable for a static site generator ([Gatsby](https://www.gatsbyjs.org/), [Hugo](https://gohugo.io/), [Jekyll](https://jekyllrb.com/), etc.).
 
